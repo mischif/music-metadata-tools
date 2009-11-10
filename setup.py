@@ -11,14 +11,18 @@ from setuptools import setup
 setup(
 	name="music-metadata-tools",
 
-	version="0.0.1",
+	version="0.0.2",
 
 	packages=["id3autosort"],
+
+	license="3-Clause BSD",
 
 	classifiers=[
 		"Development Status :: 4 - Beta",
 
 		"Operating System :: OS Independent",
+
+		"License :: OSI Approved :: BSD License",
 
 		"Programming Language :: Python :: 2",
 		"Programming Language :: Python :: 2.7",
