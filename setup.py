@@ -3,7 +3,7 @@
 ################################################################################
 #                             music-metadata-tools                             #
 #  A collection of tools for manipulating and interacting with music metadata  #
-#                               (C) 2009 Mischif                               #
+#                          (C) 2009-2010 Jeremy Brown                          #
 ################################################################################
 
 from setuptools import setup
@@ -11,7 +11,7 @@ from setuptools import setup
 setup(
 	name="music-metadata-tools",
 
-	version="0.0.2",
+	version="0.0.3",
 
 	packages=["id3autosort"],
 
