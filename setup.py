@@ -3,7 +3,7 @@
 ################################################################################
 #                             music-metadata-tools                             #
 #  A collection of tools for manipulating and interacting with music metadata  #
-#                          (C) 2009-2010 Jeremy Brown                          #
+#                       (C) 2009-2010, 2015 Jeremy Brown                       #
 ################################################################################
 
 from setuptools import setup
@@ -11,18 +11,18 @@ from setuptools import setup
 setup(
 	name="music-metadata-tools",
 
-	version="0.0.3",
+	version="0.0.4",
 
 	packages=["id3autosort"],
 
-	license="3-Clause BSD",
+	license="NPOSL-3.0",
 
 	classifiers=[
 		"Development Status :: 4 - Beta",
 
 		"Operating System :: OS Independent",
 
-		"License :: OSI Approved :: BSD License",
+		"License :: OSI Approved :: Open Software License 3.0 (OSL-3.0)",
 
 		"Programming Language :: Python :: 2",
 		"Programming Language :: Python :: 2.7",
