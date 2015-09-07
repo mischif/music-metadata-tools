@@ -11,14 +11,14 @@ from setuptools import setup
 setup(
 	name="music-metadata-tools",
 
-	version="0.1.0",
+	version="0.2.0",
 
-	packages=["id3autosort"],
+	packages=["id3autosort", "apic_tool"],
 
 	license="NPOSL-3.0",
 
-	install_requires=["hsaudiotag"],
-	
+	install_requires=["hsaudiotag", "mutagen"],
+
 	classifiers=[
 		"Development Status :: 4 - Beta",
 
