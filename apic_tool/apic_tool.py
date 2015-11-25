@@ -67,11 +67,12 @@ def ExtractImage(args, dryRun, verbose, forced):
 		print "Verbose: {}".format(verbose)
 
 	if inFile.endswith(".mp3"):
-		music = MP3(inFile, ID3=ID3)
+		music = MP3(inFile)
 		# Did the file load right?
 		if music.info.sketchy:
 			exit("Don't know why file didn't load clean; exiting")
 		else:
+			if not music.tags: exit("File has no ID3 tags; exiting")
 			if verbose: print music.tags.pprint()
 			# Does the file have an image to extract?
 			if len(music.tags.getall("APIC")) == 0:
@@ -107,27 +108,32 @@ def ExtractImage(args, dryRun, verbose, forced):
 			print "All done!"
 		exit(0)
 
-def InsertPicture(inFile, inPic, dryRun, verbose, forced):
+def InsertImage(inFile, inPic, dryRun, verbose, forced):
 	print "File: {}\nImage: {}\n".format(inFile, inPic)
 	if inFile.endswith(".mp3"):
-		music = MP3(inFile, ID3=ID3)
+		music = MP3(inFile)
 		# Did the file load right?
 		if music.info.sketchy:
 			print "File didn't load clean; skipping\n"
 			return False
 		else:
-			if verbose: print "Existing image tags: {}".format(music.tags.getall("APIC"))
-			# Is there a pre-existing image tag?
-			if len(music.tags.getall("APIC")) > 0:
-				# If so, leave if we aren't being forced
-				print "File already has embedded image"
-				if not forced: print "Not being forced, so skipping.\n"
-				else: print "But we're being forced, so we'll overwrite it"
-				if not forced: return True
-				# If we are being forced, remove pre-existing image tag
-				else:
-					if dryRun or verbose: print "Removing pre-existing APIC tag"
-					if not dryRun: music.tags.delall("APIC")
+			# Does the file have any ID3 tags at all?
+			if not music.tags:
+				if verbose: print "File has no pre-existing ID3 tags, adding empty one"
+				if not dryRun: music.add_tags()
+			else:
+				if verbose: print "Existing image tags: {}".format(music.tags.getall("APIC"))
+				# Is there a pre-existing image tag?
+				if len(music.tags.getall("APIC")) > 0:
+					# If so, leave if we aren't being forced
+					print "File already has embedded image"
+					if not forced: print "Not being forced, so skipping.\n"
+					else: print "But we're being forced, so we'll overwrite it"
+					if not forced: return True
+					# If we are being forced, remove pre-existing image tag
+					else:
+						if dryRun or verbose: print "Removing pre-existing APIC tag"
+						if not dryRun: music.tags.delall("APIC")
 			# Create the picture tag and insert it
 			mimetype = guess_type(inPic)[0]
 			if verbose: print "Guessed mimetype for image: {}".format(mimetype)
@@ -140,13 +146,12 @@ def InsertPicture(inFile, inPic, dryRun, verbose, forced):
 				if dryRun: print "Adding APIC tag to file"
 				else: music.tags.add(pic)
 				# Convert tags to ID3 v2.3 if necessary
-				if music.tags.version[0] != 2 \
-				or music.tags.version[1] != 3 \
-				and music.tags.version[1] != 4:
-					if verbose: print "Tags are version {}.{}; converting to ID3v2.3".format(
-						music.tags.version[0], music.tags.version[1])
-					if dryRun == True: print "Converting tags to ID3v2.3"
-					else: music.tags.update_to_v23()
+				if music.tags:
+					if music.tags.version[0] < 2 or music.tags.version[1] < 3:
+						if verbose: print "Tags are version {}.{}; converting to ID3v2.3".format(
+							music.tags.version[0], music.tags.version[1])
+						if dryRun: print "Converting tags to ID3v2.3"
+						else: music.tags.update_to_v23()
 				# Save updated tags
 				if dryRun or verbose: print "Saving updated tags\n"
 				if dryRun: return True
@@ -193,7 +198,7 @@ def InsertDispatch(args, dryRun, verbose, forced):
 
 	# Insert image into single file
 	if inFile:
-		if InsertPicture(inFile, inPic, dryRun, verbose, forced):
+		if InsertImage(inFile, inPic, dryRun, verbose, forced):
 			if verbose: print "Inserting image successful"
 			if not keepPic:
 				if verbose or dryRun: print "Removing picture"
@@ -217,7 +222,7 @@ def InsertDispatch(args, dryRun, verbose, forced):
 					toInsert = [join(path, f) for f in files if f.endswith(musicExts)]
 					if len(toInsert) > 0:
 						# Only delete cover image if all insertions successful
-						ip = partial(InsertPicture, inPic = image, dryRun = dryRun,
+						ip = partial(InsertImage, inPic = image, dryRun = dryRun,
 							verbose = verbose, forced = forced)
 						if all(map(ip, toInsert)):
 							print "Image successfully inserted into all files\n"
