@@ -4,7 +4,7 @@
 ################################################################################
 #                                  apic-tool                                   #
 #       Insert cover images to and extract cover images from music files       #
-#                               (C) 2015 Mischif                               #
+#                              (C) 2015-16 Mischif                             #
 #       Released under version 3.0 of the Non-Profit Open Source License       #
 ################################################################################
 
@@ -182,18 +182,24 @@ def InsertImage(inFile, inPic, dryRun, forced):
 					music.tags.add(pic)
 
 				# Convert tags to ID3 v2.3 if necessary
-				if music.tags and not dryRun:
+				if music.tags:
+					log.debug("Tags are version {}.{}".format(music.tags.version[0],
+						music.tags.version[1]))
+
 					if music.tags.version[0] < 2 or music.tags.version[1] < 3:
-						log.info("Tags are version {}.{}; converting to ID3v2.3".format(
-							music.tags.version[0], music.tags.version[1]))
-						music.tags.update_to_v23()
+						log.info("Converting to ID3v2.3")
+
+						if not dryRun: music.tags.update_to_v23()
 
 				# Save updated tags
 				if dryRun: return True
 				else:
 					log.info("Saving updated tags")
 					try:
-						music.tags.save(v2_version = music.tags.version[1])
+						if music.tags.version[1] > 3:
+							music.tags.save(v2_version = music.tags.version[1])
+						else:
+							music.tags.save(v2_version = 3)
 					except error:
 						log.error("Error saving updated tags for file {}: {}".format(path, error))
 						return False
@@ -334,7 +340,7 @@ if __name__ == "__main__":
 
 	parser.add_argument("-f", "--force",
 		action = "store_true",
-		dest = "force",
+		dest = "forced",
 		help = "Make the program do things it either thinks unnecessary or is unsure on")
 
 	parser.add_argument("-v", "--verbose",
