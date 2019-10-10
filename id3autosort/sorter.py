@@ -11,7 +11,7 @@ from __future__ import unicode_literals
 
 import re
 
-from argparse import Action, ArgumentParser, ArgumentTypeError
+from argparse import ArgumentParser, ArgumentTypeError
 from logging import (
 	DEBUG,
 	ERROR,
