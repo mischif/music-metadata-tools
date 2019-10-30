@@ -7,4 +7,4 @@
 #       Released under version 3.0 of the Non-Profit Open Source License       #
 ################################################################################
 
-__version__ = '3.0.0'
+__version__ = '3.0.1'

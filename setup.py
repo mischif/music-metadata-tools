@@ -50,7 +50,7 @@ setup(
 		},
 
 	entry_points={
-		"console_scripts": ["id3autosort=id3autosort.sorter:main"],
+		"console_scripts": ["id3autosort=id3autosort.cli:main"],
 		},
 
 	classifiers=[
