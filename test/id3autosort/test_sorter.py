@@ -115,7 +115,7 @@ def test_get_new_path(mock_normalize):
 @patch("id3autosort.sorter.isdir")
 @patch("id3autosort.sorter.makedirs")
 @patch("id3autosort.sorter.move")
-def test_sort(mock_move, mock_makedirs, mock_isdir):
+def test_sort(mock_move, mock_makedirs, mock_isdir, tmpdir):
 	mock_logger = Mock()
 
 	def _makedirs_middle(path, permissions):
@@ -131,7 +131,7 @@ def test_sort(mock_move, mock_makedirs, mock_isdir):
 	mock_move.side_effect = _move_middle
 
 	sort(mock_logger, TEST_AUDIO, "/tmp", "{artist}/{album} ({date})", True, False)
-	sort(mock_logger, "/tmp", "/tmp", "{artist}/{album} ({date})", True, False)
+	sort(mock_logger, str(tmpdir), "/tmp", "{artist}/{album} ({date})", True, False)
 
 	assert mock_makedirs.call_count == 3
 	assert mock_move.call_count == 2
