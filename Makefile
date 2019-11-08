@@ -5,8 +5,6 @@
 #       Released under version 3.0 of the Non-Profit Open Source License       #
 ################################################################################
 
-COV_OPTIONS="--cov=id3autosort --cov-report xml --cov-report term-missing --cov-config setup.cfg"
-
 .PHONY: test ci-test build
 
 clean:
@@ -15,10 +13,10 @@ clean:
 	find . -name *.pyc -exec rm -rf {} +
 
 test:
-	python -B setup.py test
+	python -B setup.py test --addopts "--cov-report term-missing:skip-covered --cov-config setup.cfg"
 
 ci-test:
-	HYPOTHESIS_PROFILE=ci python setup.py test --addopts ${COV_OPTIONS}
+	python setup.py test --addopts "--cov-report term-missing  --cov-report xml --cov-config setup.cfg"
 
 build:
 	python setup.py build sdist bdist_wheel

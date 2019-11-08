@@ -21,7 +21,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as desc:
 setup(
 	name="music-metadata-tools",
 
-	version="0.4.0",
+	version="0.4.1",
 
 	packages=["id3autosort", "apic_tool"],
 
@@ -43,7 +43,7 @@ setup(
 
 	setup_requires=["pytest-runner"],
 
-	tests_require=["hypothesis", "hypothesis-pytest", "mock", "pytest", "pytest-cov"],
+	tests_require=["mock", "pytest", "pytest-cov"],
 
 	extras_require={
 		"test": ["codecov"],
