@@ -21,7 +21,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as desc:
 setup(
 	name="music-metadata-tools",
 
-	version="0.3.0",
+	version="0.4.0",
 
 	packages=["id3autosort", "apic_tool"],
 
@@ -50,7 +50,10 @@ setup(
 		},
 
 	entry_points={
-		"console_scripts": ["id3autosort=id3autosort.cli:main"],
+		"console_scripts": [
+							"id3autosort=id3autosort.cli:main",
+							"apic-tool=apic_tool.cli:main"
+						   ],
 		},
 
 	classifiers=[
