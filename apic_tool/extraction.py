@@ -14,6 +14,13 @@ from apic_tool.workers import get_format_worker
 
 
 def write_to_disk(logger, path, data):
+	"""
+	Write the given data to the given location.
+
+	:param logger: (Logger) Logging object
+	:param path: (str) Absolute path to write data to
+	:param data: (bytes) Data to write to a file
+	"""
 	try:
 		with open(path, "wb") as image:
 			image.write(data)
@@ -25,6 +32,15 @@ def write_to_disk(logger, path, data):
 
 
 def fuzzy_match(user_ext, worker_ext):
+	"""
+	Check if the extensions the user provided and the worker determined
+	refer to the same format, even if they aren't the same.
+
+	:param user_ext: (str) User-provided extension for output picture
+	:param worker_ext: (str) Extension determined by worker for picture
+
+	:returns: True if extensions refer to the same format, False otherwise
+	"""
 	extensions = {
 		"gif": ["gif"],
 		"jpg": ["jpg", "jpeg"],
@@ -36,6 +52,21 @@ def fuzzy_match(user_ext, worker_ext):
 
 
 def get_image_path(logger, music_path, image_path, worker_ext, forced):
+	"""
+	Determine the path to store the extracted image to if one was not provided,
+	Confirm the user's provided extension matches the one determined to represent
+	the picture is a path was provided.
+
+	:param logger: (Logger) Logging object
+	:param music_path: (str) Absolute path to music file
+	:param image_path: (str/None) Absolute path to store extracted image
+	:param worker_ext: (str) Extension worker believes matches the picture
+	:param forced: (bool) Whether or not to force using the user's extension,
+						  even if it does not match the image format
+
+	:returns: None if there was an error confirming the desired location,
+			  String representing absolute path to store image otherwise
+	"""
 	path = None
 
 	# If the user didn't pass in a path for the extracted image,
@@ -75,6 +106,16 @@ def get_image_path(logger, music_path, image_path, worker_ext, forced):
 
 
 def extract_image(logger, music_path, cover_path, dry_run, forced):
+	"""
+	Dispatch function handling extracting cover image from music files.
+
+	:param logger: (Logger) Logging object
+	:param music_path: (str) Absolute path to music file
+	:param cover_path: (str/None) Desired path to store extracted image
+	:param dry_run: (bool) Whether or not to actually write images to disk
+	:param forced: (bool) Whether or not the tool should do things it doesn't
+						  believe are beneficial
+	"""
 	worker = get_format_worker(music_path)
 
 	if worker is None:

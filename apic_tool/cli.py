@@ -89,6 +89,11 @@ class AbsoluteAccessiblePaths(Action):
 
 
 def parse_args(**kwargs):
+	"""
+	Read arguments from stdin while validating and performing any necessary conversions
+
+	:returns: (Namespace) Tool arguments
+	"""
 	main_parser = ArgumentParser(
 		prog = "apic-tool",
 		description = "Inserts and extracts cover images to/from music files.",
@@ -165,6 +170,9 @@ def parse_args(**kwargs):
 
 
 def main():
+	"""
+	Tool entry point
+	"""
 	args = parse_args()
 
 	logger.setLevel(DEBUG if args.verbose else INFO)

@@ -20,5 +20,13 @@ EXTENSION_WORKER_MAPPING = {
 SUPPORTED_MUSIC = [ext for worker in VALID_WORKERS for ext in worker.supported_extensions()]
 
 def get_format_worker(path):
+	"""
+	Get the format worker corresponding to the music file.
+
+	:param path: (str) Absolute path to music file
+
+	:returns: None if no worker for file type,
+			  the corresponding format worker otherwise
+	"""
 	extension = path.rsplit(".", 1)[1]
 	return EXTENSION_WORKER_MAPPING.get(extension)

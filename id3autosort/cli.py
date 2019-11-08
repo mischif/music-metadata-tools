@@ -50,6 +50,11 @@ class CustomLogs(Formatter):
 
 
 def parse_args(**kwargs):
+	"""
+	Read arguments from stdin while validating and performing any necessary conversions
+
+	:returns: (Namespace) Tool arguments
+	"""
 	def _absolute_writable_path(path):
 		expanded_path = abspath(expanduser(path))
 
@@ -124,6 +129,9 @@ def parse_args(**kwargs):
 
 
 def main():
+	"""
+	Tool entry point
+	"""
 	args = parse_args()
 
 	logger.setLevel(DEBUG if args.verbose else INFO)

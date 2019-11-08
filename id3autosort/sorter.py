@@ -24,6 +24,17 @@ WINDOWS_UNSAFE_CHARS = re.compile("[:<>\"\*\?\|]")
 
 
 def normalize_tags(logger, md, windows_safe):
+	"""
+	Modify or remove characters in tags that would cause issues when stored on a filesystem.
+	Additionally, handle formats Mutagen recognizes but does not have an easy-mode version for,
+	creating one for use by downstream consumers.
+
+	:param logger: (Logger) Logging object
+	:param md: Mutagen metadata structure
+	:param windows_safe: (bool) Whether or not to perform extra normalization for Windows platforms
+
+	:returns: (dict) A normalized dict of tags
+	"""
 	normalized = {}
 
 	def _structure_aiff_tags(tags):
@@ -112,6 +123,14 @@ def normalize_tags(logger, md, windows_safe):
 
 
 def get_music_files(logger, music_dir):
+	"""
+	Obtain a list of all music files Mutagen can read metadata for inside the given directory.
+
+	:param logger: (logger) Logging object
+	:param music_dir: (str) Absolute path to directory to check for music files
+
+	:returns: (list) All music files Mutagen can read metadata for inside the given directory
+	"""
 	valid_files = []
 
 	for (basedir, dirs, basenames) in walk(music_dir):
@@ -133,6 +152,19 @@ def get_music_files(logger, music_dir):
 
 
 def get_new_path(logger, out_dir, structure, metadata, windows_safe):
+	"""
+	Determine the new location the given file should be located,
+	based upon the file's metadata and the provided folder structure.
+
+	:param logger: (Logger) Logging object
+	:param out_dir: (str) Root directory the file should be moved to
+	:param structure: (str) Desired structure for music files inside root directory
+	:param metadata: Mutagen metadata structure for given file
+	:param windows_safe: (bool) Whether or not to perform extra normalization for Windows platforms
+
+	:returns: None if there was an error determining the new location,
+			  a string representing an absolute path otherwise.
+	"""
 	new_path = None
 	tags = normalize_tags(logger, metadata, windows_safe)
 
@@ -147,6 +179,16 @@ def get_new_path(logger, out_dir, structure, metadata, windows_safe):
 
 
 def sort(logger, in_dir, out_dir, structure, windows_safe, dry_run):
+	"""
+	Main function handling finding music, finding the location said music
+	should be moved to, and moving it.
+
+	:param logger: (Logger) Logging object
+	:param in_dir: (str) Absolute path to music source directory
+	:param out_dir: (str) Absolute path to music destination directory
+	:param windows_safe: (bool) Whether or not to perform extra normalization for Windows platforms
+	:param dry_run: (bool) Whether or not to perform actual movement of files
+	"""
 	files_with_metadata = get_music_files(logger, in_dir)
 
 	if not len(files_with_metadata):

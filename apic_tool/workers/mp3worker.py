@@ -29,10 +29,25 @@ SUPPORTED_EXTENSIONS = ["mp3"]
 class MP3Worker(BaseWorker):
 	@staticmethod
 	def supported_extensions():
+		"""
+		All the extensions relating to the music this worker can manipulate.
+
+		:returns: (list) Strings representing file extensions
+						 this worker can handle
+		"""
 		return SUPPORTED_EXTENSIONS
 
 	@staticmethod
 	def load_file(logger, path):
+		"""
+		Obtain ID3 data for the given file.
+
+		:param logger: (Logger) Logging object
+		:param path: (str) Absolute path to MP3 file
+
+		:returns: (MP3/None) None if there was a major issue loading metadata,
+							 MP3 object otherwise
+		"""
 		music = None
 
 		try:
@@ -48,6 +63,16 @@ class MP3Worker(BaseWorker):
 
 	@staticmethod
 	def get_image_data(logger, path):
+		"""
+		Extract the image data from the given file.
+
+		:param logger: (Logger) Logging object
+		:param path: (str) Absolute path to music file
+
+		:returns: (tuple) (None, None) if no image data in file,
+						  (bytes, str) Image data from file,
+						  			   determined extension of data
+		"""
 		data = None
 		ext = None
 		music = MP3Worker.load_file(logger, path)
@@ -69,6 +94,15 @@ class MP3Worker(BaseWorker):
 
 	@staticmethod
 	def can_insert_image(logger, path, forced):
+		"""
+		Determine if it is possible to insert an image into the given file.
+
+		:param logger: (Logger) Logging object
+		:param path: (str) Absolute path to music file
+		:param forced: (bool) Whether issues should be overlooked when trying to insert image
+
+		:returns: (bool) True if it is possible to insert image, False otherwise
+		"""
 		result = forced
 		music = MP3Worker.load_file(logger, path)
 
@@ -86,6 +120,14 @@ class MP3Worker(BaseWorker):
 
 	@staticmethod
 	def write_to_metadata(logger, music_path, cover_path, forced):
+		"""
+		Write a given image to a given music file.
+
+		:param logger: (Logger) Logging object
+		:param music_path: (str) Absolute path to music file
+		:param cover_path: (str) Absolute path to image to write to music file
+		:param forced: (bool) Whether issues should be overlooked when trying to insert image
+		"""
 		result = False
 		music = MP3Worker.load_file(logger, music_path)
 

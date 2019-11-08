@@ -14,6 +14,19 @@ from apic_tool.workers import get_format_worker
 
 
 def get_music_files(logger, files, dirs, forced):
+	"""
+	Obtain a list of all music files among the provided files and directories
+	that the tool is capable of adding images to.
+
+	:param logger: (Logger) Logging object
+	:param files: (list) Strings representing absolute paths to music files
+	:param dirs: (list) Strings representing absulte paths to directories
+						containing music files
+	:param forced: (bool) Whether or not the tool should allow things to happen
+						  that may have complications
+
+	:returns: (list) Strings representing absolute paths to manipulable music files
+	"""
 	valid_files = []
 	paths = []
 
@@ -38,18 +51,35 @@ def get_music_files(logger, files, dirs, forced):
 
 
 def insert_image(logger, cover_path, insertion_dirs, insertion_files, keep_cover, dry_run, forced):
-		result = True
+	"""
+	Dispatch function handling qualifying files to insert images into
+	and actually performing insertion.
 
-		music_files = get_music_files(logger, insertion_files, insertion_dirs, forced)
+	:param logger: (Logger) Logging object
+	:param cover_path: (str) Absolute path to cover to insert into music files
+	:param insertion_dirs: (list) Strings representing absolute paths to dirs
+								  possibly containing music files
+	:param insertion_files: (list) Strings representing absolute paths to
+								   music files for possible insertion
+	:param keep_cover: (bool) Whether or not to keep the inserted cover in the
+							  event of success
+	:param dry_run: (bool) Whether or not to perform the actual insertion of
+						   images into files and deletion of cover afterwards
+	:param forced: (bool) Whether or not the tool should allow things to happen
+						  that may have complications
+	"""
+	result = True
 
-		if music_files:
-			for track in music_files:
-				logger.info("Writing image %s to file %s", cover_path, track)
-				if not dry_run:
-					worker = get_format_worker(track)
-					result &= worker.write_to_metadata(logger, track, cover_path, forced)
+	music_files = get_music_files(logger, insertion_files, insertion_dirs, forced)
 
-			if result and not keep_cover:
-				logger.info("Deleting image file %s", cover_path)
-				if not dry_run:
-					remove(cover_path)
+	if music_files:
+		for track in music_files:
+			logger.info("Writing image %s to file %s", cover_path, track)
+			if not dry_run:
+				worker = get_format_worker(track)
+				result &= worker.write_to_metadata(logger, track, cover_path, forced)
+
+		if result and not keep_cover:
+			logger.info("Deleting image file %s", cover_path)
+			if not dry_run:
+				remove(cover_path)
