@@ -49,7 +49,7 @@ class CustomLogs(Formatter):
 		return super(CustomLogs, self).format(record)
 
 
-def parse_args(arg_list):
+def parse_args(**kwargs):
 	def _absolute_writable_path(path):
 		expanded_path = abspath(expanduser(path))
 
@@ -118,13 +118,13 @@ def parse_args(arg_list):
 						action="version",
 						version="%(prog)s {}".format(__version__))
 
-	args = parser.parse_args(arg_list)
+	args = parser.parse_args(kwargs.get("argv", argv[1:]))
 	
 	return args
 
 
 def main():
-	args = parse_args(argv[1:])
+	args = parse_args()
 
 	logger.setLevel(DEBUG if args.verbose else INFO)
 	log_hdlr = StreamHandler()

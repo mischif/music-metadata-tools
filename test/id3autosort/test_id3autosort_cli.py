@@ -51,7 +51,7 @@ def test_parse_args(windows_safe, verbose, dry_run, structure, source_dir):
 		with pytest.raises(SystemExit):
 			parse_args(args_list)
 	else:
-		args = parse_args(args_list)
+		args = parse_args(argv=args_list)
 
 		assert args.verbose == verbose
 		assert args.dry_run == dry_run
