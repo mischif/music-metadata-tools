@@ -112,7 +112,7 @@ def parse_args(**kwargs):
 	main_parser.add_argument("--force",
 							 action="store_true",
 							 dest="force",
-							 help="Make the program do things it either thinks unnecessary or is unsure on")
+							 help="Whether or not the tool should allow things to happen that may have complications")
 
 	main_parser.add_argument("--version",
 							 action="version",

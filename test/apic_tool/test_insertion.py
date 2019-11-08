@@ -51,7 +51,7 @@ def test_insert_image(tmpdir):
 	insert_image(mock_logger, cover_path, None, [music_path], False, False, False)
 	assert len(tmpdir.listdir()) == 1
 	assert getsize(music_path) >= orig_size + cover_size
+	mock_logger.debug.assert_any_call("Writing image %s to file %s", cover_path, music_path)
 	mock_logger.info.assert_has_calls([
-		call("Writing image %s to file %s", cover_path, music_path),
 		call("Deleting image file %s", cover_path)
 		], any_order=True)

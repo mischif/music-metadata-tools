@@ -82,7 +82,7 @@ def parse_args(**kwargs):
 	parser = ArgumentParser(
 		prog = "id3autosort",
 		epilog = "(C) 2009-10, 2015, 2019 Mischif; Released under Non-Profit Open Source License version 3.0",
-		description = "Organizes MP3 libraries based on each track's ID3 information."
+		description = "Organize music libraries based on each track's metadata."
 		)
 
 	parser.add_argument("src_paths",
@@ -116,7 +116,7 @@ def parse_args(**kwargs):
 
 	parser.add_argument("-n", "--dry-run",
 						action="store_true",
-						help="Simulate the actions instead of actually doing them"
+						help="Don't actually move music files"
 						)
 
 	parser.add_argument("--version",

@@ -9,7 +9,7 @@
 
 from io import open
 from os import path
-from setuptools import setup
+from setuptools import find_packages, setup
 
 here = path.abspath(path.dirname(__file__))
 
@@ -21,9 +21,9 @@ with open(path.join(here, "README.md"), encoding="utf-8") as desc:
 setup(
 	name="music-metadata-tools",
 
-	version="0.4.4",
+	version="1.0.0-rc.1",
 
-	packages=["id3autosort", "apic_tool"],
+	packages=find_packages(),
 
 	license="NPOSL-3.0",
 
@@ -57,7 +57,7 @@ setup(
 		},
 
 	classifiers=[
-		"Development Status :: 4 - Beta",
+		"Development Status :: 5 - Production/Stable",
 
 		"Operating System :: OS Independent",
 
@@ -65,6 +65,9 @@ setup(
 
 		"Programming Language :: Python :: 2",
 		"Programming Language :: Python :: 2.7",
+		"Programming Language :: Python :: 3",
+		"Programming Language :: Python :: 3.6",
+		"Programming Language :: Python :: 3.7"
 		],
 
 	keywords="ID3",

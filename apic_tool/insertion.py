@@ -8,7 +8,7 @@
 ################################################################################
 
 from os import listdir, remove
-from os.path import join
+from os.path import isfile, join
 
 from apic_tool.workers import get_format_worker
 
@@ -34,7 +34,7 @@ def get_music_files(logger, files, dirs, forced):
 		paths.extend(files)
 
 	if dirs is not None:
-		for dirfiles in [list(map(lambda f: join(d, f), listdir(d))) for d in dirs]:
+		for dirfiles in [list(filter(isfile, map(lambda f: join(d, f), listdir(d)))) for d in dirs]:
 			paths.extend(dirfiles)
 
 	for path in paths:
@@ -74,7 +74,7 @@ def insert_image(logger, cover_path, insertion_dirs, insertion_files, keep_cover
 
 	if music_files:
 		for track in music_files:
-			logger.info("Writing image %s to file %s", cover_path, track)
+			logger.debug("Writing image %s to file %s", cover_path, track)
 			if not dry_run:
 				worker = get_format_worker(track)
 				result &= worker.write_to_metadata(logger, track, cover_path, forced)
