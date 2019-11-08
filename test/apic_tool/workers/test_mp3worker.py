@@ -12,6 +12,11 @@ from functools import partial
 from os.path import abspath, dirname, join
 from mock import call, Mock, patch
 
+try:
+	from importlib import reload
+except ImportError:
+	pass
+
 import pytest
 
 from mutagen import MutagenError
@@ -65,7 +70,7 @@ def test_get_image_data(scenario):
 	mock_logger = Mock()
 	path = join(APIC_TOOL_DATA, "test_extract.mp3")
 
-	with open(join(APIC_TOOL_DATA, "test_cover.png")) as f:
+	with open(join(APIC_TOOL_DATA, "test_cover.png"), "rb") as f:
 		expected_cover = f.read()
 
 	if scenario == "good":
@@ -130,9 +135,6 @@ def test_write_to_metadata(scenario):
 	mock_logger = Mock()
 	music_path = join(APIC_TOOL_DATA, "test_extract.mp3")
 	cover_path = join(APIC_TOOL_DATA, "test_cover.png")
-
-	with open(cover_path) as f:
-		expected_cover = f.read()
 
 	if scenario == "good":
 		reload(mp3worker)

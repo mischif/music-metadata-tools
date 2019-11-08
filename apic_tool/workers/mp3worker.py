@@ -11,6 +11,11 @@ from errno import EACCES
 from imghdr import what
 from mimetypes import guess_type
 
+try:
+	import builtins
+except ImportError:
+	import __builtin__ as builtins
+
 from mutagen import MutagenError
 from mutagen.id3 import ID3, APIC
 from mutagen.mp3 import MP3
@@ -33,10 +38,11 @@ class MP3Worker(BaseWorker):
 		try:
 			music = MP3(path)
 		except MutagenError as e:
-			if isinstance(e.message, IOError) and e.message.errno == EACCES:
+			orig_e = e.args[0]
+			if isinstance(orig_e, getattr(builtins, "PermissionError", IOError)) and orig_e.errno == EACCES:
 				logger.info("Permission denied attempting to access file %s", path)
 			else:
-				logger.info("Error trying to load %s as MP3 file: %s", path, str(e))
+				logger.info("Error trying to load %s as MP3 file: %s", path, str(orig_e))
 
 		return music
 
