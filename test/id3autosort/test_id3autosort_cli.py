@@ -49,7 +49,7 @@ def test_parse_args(windows_safe, verbose, dry_run, structure, source_dir):
 
 	if source_dir != TEST_AUDIO:
 		with pytest.raises(SystemExit):
-			parse_args(args_list)
+			parse_args(argv=args_list)
 	else:
 		args = parse_args(argv=args_list)
 
