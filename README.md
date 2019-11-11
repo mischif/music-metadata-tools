@@ -36,14 +36,14 @@ Supported structure metatags: d (date), g (genre), l (album), r (artist)
 
 For example, if a user specifies the structure "r/l (d)" with a destination directory of /tmp/music, results would be similar to these:
 
-/tmp/music/Nirvana/Nevermind (1991)/Smells Like Teen Spirit.mp3
-/tmp/music/The Eagles/Hotel California (1976)/Hotel California.flac
+/tmp/music/Nirvana/Nevermind (1991)/Smells Like Teen Spirit.mp3  
+/tmp/music/The Eagles/Hotel California (1976)/Hotel California.flac  
 /tmp/music/Tupac/All Eyez On Me (1996)/California Love.ogg
 
 Whereas if a user specifies the structure "g/d/r" with the same destination directory, results would be similar to these:
 
-/tmp/music/House/2001/Daft Punk/Crescendolls.wma
-/tmp/music/Pop/2014/Taylor Swift/Shake It Off.aiff
+/tmp/music/House/2001/Daft Punk/Crescendolls.wma  
+/tmp/music/Pop/2014/Taylor Swift/Shake It Off.aiff  
 /tmp/music/Dubstep/2006/Skream/Midnight Request Line.m4a
 
 Characters that are not already reserved for expansion are passed through to the generated structure, but no guarantee is made that other letters will not be used to expand other tags in the future.
