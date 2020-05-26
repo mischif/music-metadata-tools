@@ -10,6 +10,7 @@
 from __future__ import unicode_literals
 
 from argparse import Namespace
+from os import sep
 from os.path import abspath, dirname, join
 
 import pytest
@@ -30,8 +31,9 @@ TEST_AUDIO = abspath(join(dirname(__file__), "audio"))
 						 [False, False, True, False],
 						 [False, False, False, True]],
 						 ids=["windows-safe", "verbose", "dry-run", "custom-structure"])
-def test_parse_args(windows_safe, verbose, dry_run, structure, source_dir):
+def test_parse_args(tmpdir, windows_safe, verbose, dry_run, structure, source_dir):
 	args_list = []
+	output_structure = sep.join(["{artist}", "{album}"])
 
 	if verbose:
 		args_list.append("-v")
@@ -40,12 +42,13 @@ def test_parse_args(windows_safe, verbose, dry_run, structure, source_dir):
 		args_list.append("-n")
 
 	if structure:
-		args_list.extend(["-s", "/r/l (d)"])
+		output_structure = sep.join(["{artist}", "{album} ({date})"])
+		args_list.extend(["-s", sep.join(["r", "l (d)"])])
 
 	if not windows_safe:
 		args_list.append("-u")
 
-	args_list.extend([source_dir, "/tmp"])
+	args_list.extend([source_dir, str(tmpdir)])
 
 	if source_dir != TEST_AUDIO:
 		with pytest.raises(SystemExit):
@@ -56,9 +59,9 @@ def test_parse_args(windows_safe, verbose, dry_run, structure, source_dir):
 		assert args.verbose == verbose
 		assert args.dry_run == dry_run
 		assert args.windows_safe == windows_safe
-		assert args.structure == "{artist}/{album} ({date})" if structure else "{artist}/{album}"
+		assert args.structure == output_structure
 		assert args.src_paths == [TEST_AUDIO]
-		assert args.dest_path == "/tmp"
+		assert args.dest_path == str(tmpdir)
 
 
 @patch("id3autosort.cli.sort")

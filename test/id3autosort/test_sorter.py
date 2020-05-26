@@ -10,6 +10,7 @@
 from __future__ import unicode_literals
 
 from errno import EACCES
+from os import sep
 from os.path import abspath, dirname, join
 
 import pytest
@@ -100,16 +101,22 @@ def test_get_music_files(mock_file):
 
 
 @patch("id3autosort.sorter.normalize_tags")
-def test_get_new_path(mock_normalize):
+def test_get_new_path(mock_normalize, tmpdir):
 	mock_logger = Mock()
 	tags = {"artist": "Track Artist", "album": "Track Album", "date": "1017"}
-	valid_structure = "{artist}/{album} ({date})"
-	invalid_structure = "{genre}/{artist}/{album}"
+	valid_structure = sep.join(["{artist}", "{album} ({date})"])
+	invalid_structure = sep.join(["{genre}", "{artist}", "{album}"])
 
 	mock_normalize.return_value = tags
 
-	assert "/tmp/Track Artist/Track Album (1017)" == get_new_path(mock_logger, "/tmp", valid_structure, None, True)
-	assert None == get_new_path(mock_logger, "/tmp", invalid_structure, None, True)
+	assert join(str(tmpdir),
+				"Track Artist",
+				"Track Album (1017)") == get_new_path(mock_logger,
+													  str(tmpdir),
+													  valid_structure,
+													  None,
+													  True)
+	assert None == get_new_path(mock_logger, str(tmpdir), invalid_structure, None, True)
 
 
 @patch("id3autosort.sorter.isdir")

@@ -9,7 +9,8 @@
 
 from errno import EACCES
 from mock import Mock, patch
-from os.path import abspath, dirname, join
+from os import name, sep
+from os.path import abspath, dirname, exists, join
 
 import pytest
 
@@ -27,7 +28,10 @@ def test_write_to_disk(tmpdir, scenario):
 	if scenario == "good":
 		out_path = join(str(tmpdir), "test_write_to_disk.png")
 	elif scenario == "eacces":
-		out_path = join("/sys", "test_write_to_disk.png")
+		if name == "posix":
+			out_path = join(sep, "sys", "test_write_to_disk.png")
+		else:
+			out_path = join("C:", sep, "Windows", "explorer.exe")
 	elif scenario == "ioerror":
 		out_path = join("/proc", "test_write_to_disk.png")
 
