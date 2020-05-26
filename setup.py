@@ -21,8 +21,6 @@ with open(path.join(here, "README.md"), encoding="utf-8") as desc:
 setup(
 	name="music-metadata-tools",
 
-	version="1.0.0",
-
 	packages=find_packages(where="src"),
 
 	package_dir={"": "src"},
@@ -43,7 +41,7 @@ setup(
 
 	install_requires=["mutagen"],
 
-	setup_requires=["pytest-runner"],
+	setup_requires=["pytest-runner", "setuptools_scm"],
 
 	tests_require=["mock", "pytest", "pytest-cov"],
 
