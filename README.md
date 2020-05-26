@@ -23,9 +23,9 @@ id3autosort organizes music libraries based on each track's metadata. Supports A
 ## General Options
 
 	--windows-unsafe, -u	Use all characters in metadata for new directories,
-							including ones Windows filesystems normally choke on
-	--dry-run, -n			Simulate the actions instead of actually doing them
-	--verbose, -v			Increase logging verbosity
+				including ones Windows filesystems normally choke on
+	--dry-run, -n		Simulate the actions instead of actually doing them
+	--verbose, -v		Increase logging verbosity
 
 
 ## Structure Option
@@ -61,7 +61,7 @@ General Options
 
 	--dry-run, -d	Simulate the actions instead of actually doing them
 	--verbose, -v	Change the program's verbosity
-	--force			Whether or not the tool should allow things to happen that may have complications
+	--force		Whether or not the tool should allow things to happen that may have complications
 
 
 Extracting Images From Music Files
@@ -86,12 +86,12 @@ Inserting Images Into Music Files
 
 #### Insertion Options
 
-	--pic, -p /path/to/image.jpg								Image to insert into music files
-																(currently support GIF, JPEG, PNG)
+	--pic, -p /path/to/image.jpg					Image to insert into music files
+									(currently support GIF, JPEG, PNG)
 	--dir, -d /path/to/music [/path/to/other/music ...],		Directory or directories containing files to insert image into
-																NOTE: does not recurse
+									NOTE: does not recurse
 	--file, -f /path/to/file.mp3 [/path/to/other/file.mp3 ...]	Individual files to insert image into
-	--keep, -k													Don't delete image after inserting it
+	--keep, -k							Don't delete image after inserting it
 
 
 ### Put an image into a file:
