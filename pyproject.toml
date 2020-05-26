@@ -1,9 +1,14 @@
 ################################################################################
 #                             music-metadata-tools                             #
 #  A collection of tools for manipulating and interacting with music metadata  #
-#                               (C) 2019 Mischif                               #
+#                      (C) 2009-10, 2015-16, 2019 Mischif                      #
 #       Released under version 3.0 of the Non-Profit Open Source License       #
 ################################################################################
 
-[tool:pytest]
-addopts = -v -s --lf --cov=src/id3autosort --cov=src/apic_tool
+[build-system]
+build-backend = "setuptools.build_meta"
+
+requires = [
+	"setuptools >= 43.0.0",
+	"wheel",
+	]

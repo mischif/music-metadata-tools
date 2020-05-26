@@ -5,6 +5,10 @@
 #       Released under version 3.0 of the Non-Profit Open Source License       #
 ################################################################################
 
+.POSIX:
+
+CI_OPTIONS="--cov-report xml --hypothesis-profile ci"
+
 .PHONY: test ci-test build
 
 clean:
@@ -13,10 +17,10 @@ clean:
 	find . -name *.pyc -exec rm -rf {} +
 
 test:
-	python -B setup.py test --addopts "--cov-report term-missing:skip-covered --cov-config setup.cfg"
+	python -B setup.py test
 
 ci-test:
-	python setup.py test --addopts "--cov-report term-missing  --cov-report xml --cov-config setup.cfg"
+	python setup.py test --addopts ${CI_OPTIONS}
 
 build:
-	python setup.py build sdist bdist_wheel
+	python -m pep517.build -sb .

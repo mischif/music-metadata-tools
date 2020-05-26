@@ -23,7 +23,9 @@ setup(
 
 	version="1.0.0",
 
-	packages=find_packages(),
+	packages=find_packages(where="src"),
+
+	package_dir={"": "src"},
 
 	license="NPOSL-3.0",
 
@@ -45,6 +47,10 @@ setup(
 
 	tests_require=["mock", "pytest", "pytest-cov"],
 
+	zip_safe=False,
+
+	keywords=["ID3", "APIC"],
+
 	extras_require={
 		"test": ["codecov"],
 		},
@@ -54,6 +60,20 @@ setup(
 							"id3autosort=id3autosort.cli:main",
 							"apic-tool=apic_tool.cli:main"
 						   ],
+		},
+
+	options={
+		"aliases": {
+			"test": "pytest",
+			},
+
+		"bdist_wheel": {
+			"universal": "1",
+			},
+
+		"metadata": {
+			"license_files": "LICENSE",
+			},
 		},
 
 	classifiers=[
@@ -69,6 +89,4 @@ setup(
 		"Programming Language :: Python :: 3.6",
 		"Programming Language :: Python :: 3.7"
 		],
-
-	keywords="ID3",
 	)
