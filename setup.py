@@ -3,7 +3,7 @@
 ################################################################################
 #                             music-metadata-tools                             #
 #  A collection of tools for manipulating and interacting with music metadata  #
-#                      (C) 2009-10, 2015-16, 2019 Mischif                      #
+#                  (C) 2009-10, 2015-16, 2019-20 Jeremy Brown                  #
 #       Released under version 3.0 of the Non-Profit Open Source License       #
 ################################################################################
 

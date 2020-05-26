@@ -3,7 +3,7 @@
 ################################################################################
 #                                  apic-tool                                   #
 #       Insert cover images to and extract cover images from music files       #
-#                           (C) 2015-16, 2019 Mischif                          #
+#                       (C)2015-16, 2019-20 Jeremy Brown                       #
 #       Released under version 3.0 of the Non-Profit Open Source License       #
 ################################################################################
 
