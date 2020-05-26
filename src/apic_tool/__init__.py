@@ -10,6 +10,6 @@
 from apic_tool.workers import SUPPORTED_MUSIC
 
 
-__version__ = "2.0.0"
+__version__ = "3.0.0"
 
 SUPPORTED_IMAGES = ["gif", "jpg", "jpeg", "png"]

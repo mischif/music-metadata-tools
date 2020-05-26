@@ -7,8 +7,6 @@
 #       Released under version 3.0 of the Non-Profit Open Source License       #
 ################################################################################
 
-from __future__ import unicode_literals
-
 import re
 
 from argparse import Action, ArgumentParser, ArgumentTypeError

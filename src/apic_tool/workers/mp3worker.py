@@ -11,10 +11,7 @@ from errno import EACCES
 from imghdr import what
 from mimetypes import guess_type
 
-try:
-	import builtins
-except ImportError:
-	import __builtin__ as builtins
+import builtins
 
 from mutagen import MutagenError
 from mutagen.id3 import ID3, APIC
