@@ -1,9 +1,9 @@
 music-metadata-tools
 ====================
 
+[![GitHub Workflow](https://img.shields.io/github/workflow/status/mischif/music-metadata-tools/Pipeline?logo=github&style=for-the-badge)](https://github.com/mischif/music-metadata-tools/actions)
+[![Codecov](https://img.shields.io/codecov/c/github/mischif/music-metadata-tools?logo=codecov&style=for-the-badge)](https://codecov.io/gh/mischif/music-metadata-tools)
 [![Python Versions](https://img.shields.io/pypi/pyversions/music-metadata-tools?style=for-the-badge)](https://pypi.org/project/music-metadata-tools/)
-[![Travis](https://img.shields.io/travis/mischif/music-metadata-tools.svg?style=for-the-badge)](https://travis-ci.org/mischif/music-metadata-tools)
-[![Codecov](https://img.shields.io/codecov/c/github/mischif/music-metadata-tools.svg?style=for-the-badge)](https://codecov.io/gh/mischif/music-metadata-tools)
 [![Package Version](https://img.shields.io/pypi/v/music-metadata-tools?style=for-the-badge)](https://pypi.org/project/music-metadata-tools/)
 [![License](https://img.shields.io/pypi/l/music-metadata-tools?style=for-the-badge)](https://pypi.org/project/music-metadata-tools/)
 

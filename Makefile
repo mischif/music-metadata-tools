@@ -7,12 +7,12 @@
 
 .POSIX:
 
-CI_OPTIONS="--cov-report xml --hypothesis-profile ci"
+CI_OPTIONS="--cov-report xml"
 
 .PHONY: test ci-test build
 
 clean:
-	rm -rf .coverage coverage.xml .eggs/ .hypothesis/ .pytest_cache/ *egg-info/ dist/ build/
+	rm -rf .coverage coverage.xml .eggs/ .pytest_cache/ *egg-info/ dist/ build/
 	find . -name __pycache__ -exec rm -rf {} +
 	find . -name *.pyc -exec rm -rf {} +
 
