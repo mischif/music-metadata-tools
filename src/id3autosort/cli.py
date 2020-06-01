@@ -79,7 +79,7 @@ def parse_args(**kwargs):
 
 	parser = ArgumentParser(
 		prog = "id3autosort",
-		epilog = "(C) 2009-10, 2015, 2019 Mischif; Released under Non-Profit Open Source License version 3.0",
+		epilog = "(C) 2009-10, 2015, 2019-20 Jeremy Brown; Released under Non-Profit Open Source License version 3.0",
 		description = "Organize music libraries based on each track's metadata."
 		)
 

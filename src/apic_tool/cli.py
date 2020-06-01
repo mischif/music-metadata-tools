@@ -97,7 +97,7 @@ def parse_args(**kwargs):
 	main_parser = ArgumentParser(
 		prog = "apic-tool",
 		description = "Inserts and extracts cover images to/from music files.",
-		epilog = "(C) 2015-16, 2019 Mischif; released under Non-Profit Open Source License version 3.0"
+		epilog = "(C) 2015-16, 2019-20 Jeremy Brown; released under Non-Profit Open Source License version 3.0"
 		)
 
 	main_parser.add_argument("-n", "--dry-run",
